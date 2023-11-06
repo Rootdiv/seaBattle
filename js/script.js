@@ -5,6 +5,7 @@ const dead = document.getElementById('dead');
 const enemy = document.getElementById('enemy');
 const again = document.getElementById('again');
 const header = document.querySelector('.header');
+const tdAll = document.querySelectorAll('td');
 
 const play = {
   record: localStorage.getItem('seaBattleRecord') || 0,
@@ -17,6 +18,13 @@ const play = {
    */
   set updateData(data) {
     this[data] += 1;
+    this.render();
+  },
+
+  reset() {
+    this.shot = 0;
+    this.hit = 0;
+    this.dead = 0;
     this.render();
   },
 
@@ -107,6 +115,12 @@ const game = {
       }
     }
   },
+
+  reset() {
+    this.ships = [];
+    this.shipCount = 0;
+    this.collision.clear();
+  },
 };
 
 const show = {
@@ -169,7 +183,11 @@ const init = () => {
   play.render();
 
   again.addEventListener('click', () => {
-    location.reload();
+    tdAll.forEach(elem => {
+      show.changeClass(elem, '');
+    });
+    game.reset();
+    play.reset();
   });
 
   record.addEventListener('dblclick', () => {
