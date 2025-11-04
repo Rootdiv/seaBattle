@@ -188,6 +188,10 @@ const init = () => {
     });
     game.reset();
     play.reset();
+
+    header.textContent = 'Морской бой';
+    game.generateShip();
+    play.render();
   });
 
   record.addEventListener('dblclick', () => {
